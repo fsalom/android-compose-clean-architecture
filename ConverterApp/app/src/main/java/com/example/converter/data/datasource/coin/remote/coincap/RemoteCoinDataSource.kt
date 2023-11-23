@@ -1,7 +1,8 @@
-package com.example.converter.datasources.coin.remote
+package com.example.converter.data.datasource.coin.remote.coincap
 
-import com.example.converter.datasources.coin.remote.api.CoinCapApiInterface
-import com.example.converter.datasources.coin.remote.dto.CoinDTO
+import com.example.converter.data.datasource.coin.remote.RemoteCoinDataSourceInterface
+import com.example.converter.data.datasource.coin.remote.coincap.api.CoinCapApiInterface
+import com.example.converter.data.datasource.coin.remote.coincap.dto.CoinDTO
 import com.example.converter.manager.network.NetworkManagerInterface
 import retrofit2.Retrofit
 

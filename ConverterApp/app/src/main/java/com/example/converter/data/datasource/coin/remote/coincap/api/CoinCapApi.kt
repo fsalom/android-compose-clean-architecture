@@ -1,6 +1,6 @@
-package com.example.converter.datasources.coin.remote.api
+package com.example.converter.data.datasource.coin.remote.coincap.api
 
-import com.example.converter.datasources.coin.remote.dto.CoinWrapperDTO
+import com.example.converter.data.datasource.coin.remote.coincap.dto.CoinWrapperDTO
 import retrofit2.Response
 import retrofit2.http.GET
 

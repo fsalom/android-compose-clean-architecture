@@ -1,4 +1,4 @@
-package com.example.converter.datasources.coin.remote.dto
+package com.example.converter.data.datasource.coin.remote.coincap.dto
 
 import com.google.gson.annotations.SerializedName
 
