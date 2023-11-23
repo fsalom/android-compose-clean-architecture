@@ -7,7 +7,7 @@ data class CoinWrapperDTO(
 )
 
 data class CoinDTO(
-    @SerializedName("id") var id: Int? = 0,
+    @SerializedName("id") var id: String? = "-",
     @SerializedName("symbol") var symbol: String? = "null",
     @SerializedName("name") var name: String? = "null",
     @SerializedName("priceUsd") var priceUsd: Double = 0.0

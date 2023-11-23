@@ -16,6 +16,4 @@ class RemoteCoinDataSource(
         val response = network.load { coinsApi.getResponseCoins() }
         return response.results
     }
-
-
 }

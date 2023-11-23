@@ -11,7 +11,7 @@ class CoinRepository(private val remoteDataSource: RemoteCoinDataSourceInterface
 }
 
 private fun CoinDTO.toDomain(): Coin {
-    return Coin(id = id ?: 0,
+    return Coin(id =id ?: "",
         symbol = symbol ?: "",
         name = name ?: "",
         priceUsd = priceUsd)
