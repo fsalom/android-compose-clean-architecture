@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.converter.data.datasource.coin.remote.coincap.RemoteCoinDataSource
 import com.example.converter.data.repositories.coin.CoinRepository
 import com.example.converter.domain.usecases.coin.CoinUseCase
+import com.example.converter.helper.interceptor.LoggingInterceptor
+import com.example.converter.helper.logger.logcat.Logger
 import com.example.converter.manager.network.NetworkRetrofitManager
 import com.example.converter.presentation.converter.ConverterView
 import com.example.converter.presentation.converter.ConverterViewModel
@@ -33,6 +35,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val okHttpClient = OkHttpClient
                     .Builder()
+                    .addInterceptor(LoggingInterceptor(
+                        Logger("LOGGER_IDENTIFIER", Logger.Style.COMPLETE))
+                    )
                     .build()
 
                     val remoterDataSource = RemoteCoinDataSource(
@@ -40,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         retrofit = Retrofit
                             .Builder()
                             .addConverterFactory(GsonConverterFactory.create())
-                            .baseUrl("https://coincap.io/")
+                            .baseUrl("https://api.coincap.io//")
                             .client(okHttpClient)
                             .build())
                     val repository = CoinRepository(remoteDataSource = remoterDataSource)

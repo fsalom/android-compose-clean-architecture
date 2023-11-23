@@ -19,18 +19,39 @@ class ConverterViewModel(private val useCase: CoinUseCaseInterface
 ):  CoinViewModelInterface,
     ViewModel() {
 
+    private lateinit var fromCoin: Coin
+    private lateinit var toCoin: Coin
+
     private val _uiState = MutableStateFlow(CoinUiState(isLoading = true))
     override val uiState: StateFlow<CoinUiState> = _uiState.asStateFlow()
 
     override fun load() {
         viewModelScope.launch {
-            val coins = useCase.getCoins()
-            _uiState.update {
-                it.copy(
-                    isLoading = false,
-                    coins = coins
-                )
+            try {
+                val coins = useCase.getCoins()
+                fromCoin = coins.first()
+                toCoin = coins.first()
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        coins = coins
+                    )
+                }
+            } catch (e: Exception) {
+                println("error: " + e.message)
             }
         }
+    }
+
+    override fun setFrom(coin: Coin) {
+        fromCoin = coin
+    }
+
+    override fun setTo(coin: Coin) {
+        toCoin = coin
+    }
+
+    override fun convert(quantity: Double) {
+        TODO("Not yet implemented")
     }
 }
