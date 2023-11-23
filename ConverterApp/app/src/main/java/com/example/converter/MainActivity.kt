@@ -10,7 +10,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.converter.data.datasource.coin.remote.coincap.RemoteCoinDataSource
+import com.example.converter.data.repositories.coin.CoinRepository
+import com.example.converter.domain.usecases.coin.CoinUseCase
+import com.example.converter.manager.network.NetworkRetrofitManager
+import com.example.converter.presentation.converter.ConverterView
+import com.example.converter.presentation.converter.ConverterViewModel
 import com.example.converter.ui.theme.ConverterTheme
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +31,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val okHttpClient = OkHttpClient
+                    .Builder()
+                    .build()
+
+                    val remoterDataSource = RemoteCoinDataSource(
+                        network = NetworkRetrofitManager(),
+                        retrofit = Retrofit
+                            .Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .baseUrl("https://coincap.io/")
+                            .client(okHttpClient)
+                            .build())
+                    val repository = CoinRepository(remoteDataSource = remoterDataSource)
+                    val useCase = CoinUseCase(repository = repository)
+                    val viewModel = ConverterViewModel(useCase = useCase)
+                    ConverterView(viewModel = viewModel)
                 }
             }
         }
