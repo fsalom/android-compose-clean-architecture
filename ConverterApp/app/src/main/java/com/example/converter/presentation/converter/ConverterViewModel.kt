@@ -12,46 +12,93 @@ import kotlinx.coroutines.launch
 
 data class CoinUiState(
     val isLoading: Boolean = false,
-    val coins: List<Coin> = emptyList()
+    val coins: List<Coin> = emptyList(),
+    val coinFrom: Coin = Coin(),
+    val quantityFrom: Double = 0.0,
+    val coinTo: Coin = Coin(),
+    val quantityTo: Double = 0.0,
+    val error: String = ""
 )
 
-class ConverterViewModel(private val useCase: CoinUseCaseInterface
+class ConverterViewModel(
+    private val useCase: CoinUseCaseInterface
 ):  CoinViewModelInterface,
     ViewModel() {
 
-    private lateinit var fromCoin: Coin
-    private lateinit var toCoin: Coin
-
     private val _uiState = MutableStateFlow(CoinUiState(isLoading = true))
     override val uiState: StateFlow<CoinUiState> = _uiState.asStateFlow()
+
 
     override fun load() {
         viewModelScope.launch {
             try {
                 val coins = useCase.getCoins()
-                fromCoin = coins.first()
-                toCoin = coins.first()
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        coins = coins
+                        coinFrom = coins.first(),
+                        coinTo = coins.first(),
+                        coins = coins,
+                        error = ""
                     )
                 }
             } catch (e: Exception) {
-                println("error: " + e.message)
+                _uiState.update {
+                    it.copy(
+                        error = "Se ha producido un error"
+                    )
+                }
             }
         }
     }
 
     override fun setFrom(coin: Coin) {
-        fromCoin = coin
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    coins = it.coins,
+                    coinFrom = coin,
+                    quantityFrom =  useCase.convert(coin, it.coinTo, it.quantityTo),
+                    quantityTo = it.quantityTo
+                )
+            }
+        }
     }
 
     override fun setTo(coin: Coin) {
-        toCoin = coin
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    coins = it.coins,
+                    quantityFrom =  it.quantityFrom,
+                    coinTo = coin,
+                    quantityTo = useCase.convert(coin, it.coinFrom, it.quantityFrom)
+                )
+            }
+        }
     }
 
-    override fun convert(quantity: Double) {
-        TODO("Not yet implemented")
+    override fun quantityFromChangedTo(quantity: Double) {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    coins = it.coins,
+                    quantityFrom = quantity,
+                    quantityTo = useCase.convert(it.coinFrom, it.coinTo, quantity),
+                )
+            }
+        }
+    }
+
+    override fun quantityToChangedTo(quantity: Double) {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    coins = it.coins,
+                    quantityFrom = useCase.convert(it.coinTo, it.coinFrom, quantity),
+                    quantityTo = quantity
+                )
+            }
+        }
     }
 }

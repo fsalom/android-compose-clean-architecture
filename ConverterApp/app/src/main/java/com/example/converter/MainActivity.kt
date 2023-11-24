@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         retrofit = Retrofit
                             .Builder()
                             .addConverterFactory(GsonConverterFactory.create())
-                            .baseUrl("https://api.coincap.io//")
+                            .baseUrl("https://api.coincap.io/v2/")
                             .client(okHttpClient)
                             .build())
                     val repository = CoinRepository(remoteDataSource = remoterDataSource)
