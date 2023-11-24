@@ -8,4 +8,7 @@ class CoinUseCase(private val repository: CoinRepositoryInterface): CoinUseCaseI
         return repository.getCoins()
     }
 
+    override suspend fun convert(fromCoin: Coin, toCoin: Coin, quantity: Double): Double {
+        return (toCoin.priceUsd * quantity) / fromCoin.priceUsd
+    }
 }

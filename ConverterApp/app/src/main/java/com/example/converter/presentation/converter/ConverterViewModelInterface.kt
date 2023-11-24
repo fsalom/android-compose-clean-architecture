@@ -8,5 +8,6 @@ interface CoinViewModelInterface {
     fun load()
     fun setFrom(coin: Coin)
     fun setTo(coin: Coin)
-    fun convert(quantity: Double)
+    fun quantityFromChangedTo(quantity: Double)
+    fun quantityToChangedTo(quantity: Double)
 }
