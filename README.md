@@ -1,6 +1,5 @@
 # Android Clean Architecture with Kotlin and Compose
 
-## Description
 Welcome to the repository for Android Clean Architecture with Kotlin and Jetpack Compose! This project serves as a comprehensive guide and practical implementation of Clean Architecture principles in Android app development using the powerful combination of Kotlin and Jetpack Compose.
 
 ## Overview
