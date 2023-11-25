@@ -10,9 +10,10 @@ Clean Architecture, introduced by Robert C. Martin, emphasizes the separation of
 To get started with this project, follow these steps:
 
 Clone the repository to your local machine:
-´´´
+
+```swift
 git clone https://github.com/fsalom/android-compose-clean-architecture.git
-´´´
+```
 
 Open the project in Android Studio.
 
@@ -30,15 +31,9 @@ This repository demonstrates practical examples of the following key components:
 ## Examples
 Take a look at the examples provided in the repository to understand how Clean Architecture principles are applied in a real-world Android app. Examples include:
 
-Use Case Implementation:
-
-See how use cases are implemented in the domain layer, encapsulating business logic.
-Repository Pattern:
-
-Explore the data layer to understand how the repository pattern is employed to fetch and store data.
-Jetpack Compose UI:
-
-Dive into Jetpack Compose code in the presentation layer to create a modern and responsive user interface.
+- Use Case Implementation: See how use cases are implemented in the domain layer, encapsulating business logic.
+- Repository Pattern: Explore the data layer to understand how the repository pattern is employed to fetch and store data.
+- Jetpack Compose UI: Dive into Jetpack Compose code in the presentation layer to create a modern and responsive user interface.
 
 ## Contributing
 We welcome contributions! Whether you want to fix a bug, add a feature, or improve documentation, your contributions are highly appreciated. Check out the Contributing Guidelines for more information.
