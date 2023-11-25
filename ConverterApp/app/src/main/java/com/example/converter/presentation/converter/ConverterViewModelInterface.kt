@@ -10,4 +10,5 @@ interface CoinViewModelInterface {
     fun setTo(coin: Coin)
     fun quantityFromChangedTo(quantity: Double)
     fun quantityToChangedTo(quantity: Double)
+    fun swap()
 }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+
 data class CoinUiState(
     val isLoading: Boolean = false,
     val coins: List<Coin> = emptyList(),
@@ -97,6 +98,20 @@ class ConverterViewModel(
                     coins = it.coins,
                     quantityFrom = useCase.convert(it.coinTo, it.coinFrom, quantity),
                     quantityTo = quantity
+                )
+            }
+        }
+    }
+
+    override fun swap() {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    coins = it.coins,
+                    coinFrom = it.coinTo,
+                    quantityFrom = it.quantityFrom,
+                    coinTo = it.coinFrom,
+                    quantityTo = useCase.convert(it.coinFrom, it.coinTo, it.quantityFrom)
                 )
             }
         }
