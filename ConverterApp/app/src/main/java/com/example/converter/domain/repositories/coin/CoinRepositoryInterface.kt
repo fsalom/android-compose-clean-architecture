@@ -1,4 +1,4 @@
-package com.example.converter.data.repositories.coin
+package com.example.converter.domain.repositories.coin
 
 import com.example.converter.domain.entities.Coin
 
